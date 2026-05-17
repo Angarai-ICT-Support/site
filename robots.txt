@@ -1,0 +1,8 @@
+User-agent: * 
+Disallow: /2017/
+Disallow: /aas/
+Disallow: /GoDaddy Default/
+Disallow: /test/
+Disallow: /v2.0/
+
+

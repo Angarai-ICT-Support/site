@@ -254,7 +254,7 @@ $(document).ready(function() {
 	);
 	
 	//GOOGLE MAP
-	var myLatlng = new google.maps.LatLng(38.9889919,-76.874777);
+	var myLatlng = new google.maps.LatLng(39.000364,-76.898107);
 	var mapOptions = {
 	  zoom: 18,
 	  center: myLatlng,

@@ -133,7 +133,7 @@ text-decoration: underline;
 .footer {
 	width:981px;
 	float:left;
-	background:url(../images/footer_bg.png) repeat-x left top;
+	/*background:url(../images/footer_bg.png) repeat-x left top;*/
 	font-family: 'exoregular';
 	font-size:10px;
 	color:#333;
@@ -142,7 +142,7 @@ text-decoration: underline;
 .h_footer {
 	width:1005px;
 	float:left;
-	background:url(../images/footer_bg.png) repeat-x left top;
+	/*background:url(../images/footer_bg.png) repeat-x left top;*/
 	font-family: 'exoregular';
 	font-size:10px;
 	color:#333;
@@ -580,7 +580,7 @@ border-left: 1px #000000 dashed;
 .career_content_table_content {
 	color: #666666;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
+	font-size: 15px;
 }
 .Source_content_left_paragraph table tr td {
 	border-bottom: 1px dashed #0B2353;

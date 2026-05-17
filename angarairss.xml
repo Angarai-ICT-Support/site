@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/css" href="https://angarai-intl.com/css/style.css" media="screen"?>
+<rss version="2.0">
+  <channel>
+    <generator>RSS Builder by B!Soft</generator>
+    <title>ANGARAI in the News!</title>
+    <link>www.angarai-intl.com</link>
+    <description>News &amp; Events from ANGARAI</description>
+    <language>en-us</language>
+    <copyright>2014 ANGARAI</copyright>
+    <image>
+      <title>ANGARAI in the News!</title>
+      <link>www.angarai-intl.com</link>
+      <url>https://angarai-intl.com/images/logo.png</url>
+    </image>
+    <item>
+      <title>ANGARAI is awarded the IV&amp;V and QA/QC Contract with Maryland Health Benefit Exchange</title>
+      <pubDate>Tue, 24 Jun 2014 EDT</pubDate>
+      <link>https://angarai-intl.com/webandprint_June_24_2014.html</link>
+      <category>Health &amp; Human Services</category>
+      <description><![CDATA[ANGARAI is awarded the IV&V and QA/QC Contract with Maryland Health Benefit Exchange.]]></description>
+    </item>
+    <item>
+      <title>Venkat Subramanian wins the "Minority Business Leader Award of 2014" from the Washington Business Journal</title>
+      <pubDate>Thu, 20 Mar 2014 EDT</pubDate>
+      <link>https://angarai-intl.com/webandprint_mar_20_2014.html</link>
+      <category>Awards &amp; Recognitions</category>
+      <description><![CDATA[Venkat Subramanian wins the "Minority Business Leader Award of 2014" from the Washington Business Journal.]]></description>
+    </item>
+  </channel>
+</rss>
