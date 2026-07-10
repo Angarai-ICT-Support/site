@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANGARAI - What's Next</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#050B18;
+    --ink-2:#081A34;
+    --ink-3:#0A1730;
+    --panel:#0D1B34;
+    --panel-2:#0F2242;
+    --line: rgba(178,199,255,0.09);
+    --line-strong: rgba(178,199,255,0.20);
+    --brass:#E8B94D;
+    --brass-bright:#FFD873;
+    --brass-soft: rgba(232,185,77,0.15);
+    --signal:#22E6D6;
+    --signal-bright:#7CFCEF;
+    --signal-soft: rgba(34,230,214,0.15);
+    --azure:#4C8DFF;
+    --azure-bright:#8FB6FF;
+    --azure-soft: rgba(76,141,255,0.16);
+    --paper:#F5F3EC;
+    --paper-dim:#CBD1E2;
+    --slate:#93A5C7;
+    --slate-dim:#5F7093;
+    --serif: 'Fraunces', Georgia, serif;
+    --tech: 'Space Grotesk', 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+
+  ::selection{ background:var(--signal-soft); color:var(--paper); }
+
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline: 2px solid var(--signal-bright);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- background texture ---------- */
+  .bg-field{
+    position:fixed; inset:0; z-index:-3;
+    background:
+      radial-gradient(ellipse 900px 620px at 12% -8%, rgba(232,185,77,0.09), transparent 60%),
+      radial-gradient(ellipse 1000px 760px at 92% 6%, rgba(34,230,214,0.12), transparent 60%),
+      radial-gradient(ellipse 700px 600px at 50% 60%, rgba(76,141,255,0.07), transparent 65%),
+      linear-gradient(180deg, #030814 0%, #081430 40%, #050B18 100%);
+    animation: fieldShift 24s ease-in-out infinite alternate;
+  }
+  @keyframes fieldShift{
+    0%{ filter:hue-rotate(0deg) brightness(1); }
+    100%{ filter:hue-rotate(6deg) brightness(1.06); }
+  }
+  .bg-grid{
+    position:fixed; inset:0; z-index:-2; opacity:0.4;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 10%, transparent 75%);
+  }
+
+  /* ---------- scroll progress ---------- */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:2px; width:0%;
+    background:linear-gradient(90deg, var(--brass), var(--signal), var(--azure));
+    z-index:80; transition:width 0.1s linear;
+  }
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:60;
+    backdrop-filter: blur(14px);
+    background: rgba(5,11,24,0.72);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo-badge{
+    display:inline-flex; align-items:center;
+    position:relative;
+    background:var(--paper); border-radius:8px; padding:6px 12px;
+    display:inline-flex; align-items:center; box-shadow:0 2px 14px rgba(0,0,0,0.25);
+  }
+  .logo-img{ 
+    height:45px; width:auto; display:block; filter:brightness(1.5) contrast(1.1);
+  }
+  .foot-logo-badge{
+    display:inline-flex; align-items:center; margin-bottom:12px;
+    background:var(--paper); border-radius:8px; padding:8px 14px;
+    display:inline-flex; align-items:center; margin-bottom:12px;
+  }
+  .foot-logo-badge img{ 
+    height:45px; width:auto; display:block; filter:brightness(1.5) contrast(1.1);
+  }
+  .nav-links{
+    display:flex; align-items:center; gap:28px;
+    font-family:var(--mono); font-size:0.78rem;
+    letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--slate);
+  }
+  .nav-links a{ position:relative; padding:4px 0; transition:color 0.2s ease; }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:-2px; width:0; height:1px;
+    background:var(--signal-bright); transition:width 0.25s ease;
+  }
+  .nav-links a:hover{ color:var(--signal-bright); }
+  .nav-links a:hover::after{ width:100%; }
+  .pill{
+    font-family:var(--mono); font-size:0.7rem; letter-spacing:0.08em;
+    text-transform:uppercase; padding:6px 12px; border-radius:100px;
+    border:1px solid var(--signal); color:var(--signal-bright);
+    background:var(--signal-soft); white-space:nowrap;
+    box-shadow:0 0 18px rgba(34,230,214,0.25);
+  }
+  @media (max-width:800px){ .nav-links{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:140px 0 100px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+  display:grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  align-items:center;
+  gap:48px;
+}
+.hero-visual{
+  border-radius:20px;
+}
+.hero-visual img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+@media (max-width:900px){
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:32px;
+  }
+  .hero-visual{ order:-1; max-width:360px; margin:0 auto; }
+}
+  #particleCanvas{
+    position:absolute; inset:0; z-index:0; opacity:0.75; pointer-events:none;
+  }
+  .hero .wrap{ position:relative; z-index:1; }
+  .hero::after{
+    content:''; position:absolute; left:0; right:0; bottom:0; height:220px; z-index:0;
+    background:linear-gradient(180deg, transparent, var(--ink) 90%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--slate);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:''; width:26px; height:1px; background:var(--brass);
+  }
+  h1.hero-title{
+    font-family:var(--serif); font-weight:400; font-size:clamp(2.4rem, 6vw, 4.6rem);
+    line-height:1.06; color:var(--paper); max-width:15ch;
+  }
+  .hero-tech-line{
+    font-family:var(--tech); font-weight:600; font-size:clamp(1.4rem, 3.4vw, 2.5rem);
+    background:linear-gradient(90deg, var(--signal-bright), var(--azure-bright));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    margin-top:10px; letter-spacing:-0.01em;
+  }
+  .hero-sub{
+    margin-top:28px; max-width:56ch; color:var(--paper-dim);
+    font-size:1.08rem; line-height:1.7;
+  }
+  .hero-cta{
+    display:flex; flex-wrap:wrap; gap:16px; margin-top:40px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 24px; border-radius:8px; font-family:var(--sans);
+    font-weight:600; font-size:0.95rem; transition:all 0.2s ease;
+    border:1px solid transparent; cursor:pointer;
+    position:relative; overflow:hidden;
+  }
+  .btn::before{
+    content:''; position:absolute; top:0; left:-60%; width:40%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform:skewX(-20deg); transition:left 0.6s ease;
+  }
+  .btn:hover::before{ left:130%; }
+  .btn-primary{
+    background:linear-gradient(90deg, var(--signal), var(--azure));
+    color:var(--ink); box-shadow:0 0 24px rgba(34,230,214,0.28);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 6px 28px rgba(34,230,214,0.4); }
+  .btn-ghost{
+    border-color:var(--line-strong); color:var(--paper);
+    background:rgba(255,255,255,0.02);
+  }
+  .btn-ghost:hover{ border-color:var(--brass); color:var(--brass-bright); transform:translateY(-2px); }
+  .btn svg{ width:16px; height:16px; flex-shrink:0; }
+
+  .hero-meta{
+    margin-top:64px; display:flex; gap:40px; flex-wrap:wrap;
+    font-family:var(--mono); font-size:0.8rem; color:var(--slate-dim);
+  }
+  .hero-meta b{ color:var(--paper-dim); font-weight:500; }
+
+  /* ---------- section shell ---------- */
+  section{ padding:110px 0; position:relative; }
+  .section-head{ max-width:70ch; margin-bottom:56px; }
+  h2.section-title{
+    font-family:var(--serif); font-weight:400; font-size:clamp(1.9rem, 3.6vw, 2.7rem);
+    color:var(--paper); margin-top:14px;
+  }
+  .lede{ margin-top:20px; color:var(--paper-dim); font-size:1.05rem; max-width:66ch; line-height:1.75; }
+
+  /* ---------- stats counter ---------- */
+  .stats-band{ padding:64px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .stat-item{ background:var(--panel); padding:32px 24px; text-align:center; }
+  .stat-num{ font-family:var(--tech); font-weight:700; font-size:clamp(1.8rem,4vw,2.6rem);
+    background:linear-gradient(90deg, var(--brass-bright), var(--signal-bright));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .stat-label{ margin-top:8px; font-family:var(--mono); font-size:0.76rem; letter-spacing:0.05em; color:var(--slate); text-transform:uppercase; }
+  @media (max-width:800px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ---------- about ---------- */
+  .about-layout{ display:grid; grid-template-columns:1.2fr 0.8fr; gap:56px; align-items:center; }
+  @media (max-width:900px){ .about-layout{ grid-template-columns:1fr; } }
+  .skyline-frame{
+    border:1px solid var(--line-strong); border-radius:18px; background:var(--panel);
+    padding:28px; display:flex; align-items:flex-end; justify-content:center;
+    box-shadow: inset 0 0 60px rgba(34,230,214,0.05);
+  }
+  .skyline-svg{ width:100%; height:auto; animation: floaty 7s ease-in-out infinite; }
+  @keyframes floaty{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-8px);} }
+
+  .capgrid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; margin-top:44px;
+  }
+  .cap-item{
+    background:var(--panel); padding:26px 24px; min-height:140px;
+    display:flex; flex-direction:column; gap:10px;
+    transition:background 0.25s ease, transform 0.25s ease;
+  }
+  .cap-item:hover{ background:var(--panel-2); transform:translateY(-3px); }
+  .cap-item .num{ font-family:var(--mono); font-size:0.75rem; color:var(--brass); }
+  .cap-item .name{ font-family:var(--sans); font-weight:600; font-size:1rem; color:var(--paper); }
+  .cap-item .desc{ font-size:0.88rem; color:var(--slate); line-height:1.5; }
+  @media (max-width:800px){ .capgrid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .capgrid{ grid-template-columns:1fr; } }
+
+  .vertrow{ display:flex; flex-wrap:wrap; gap:12px; margin-top:36px; }
+  .vert-chip{
+    font-family:var(--mono); font-size:0.82rem; padding:9px 16px;
+    border:1px solid var(--line-strong); border-radius:100px; color:var(--paper-dim);
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .vert-chip:hover{ border-color:var(--azure); color:var(--azure-bright); }
+
+  .certstrip{ margin-top:56px; padding-top:36px; border-top:1px solid var(--line); }
+  .certstrip .label{ font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em; color:var(--slate-dim); text-transform:uppercase; margin-bottom:16px; display:block; }
+  .marquee{ overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, black 8%, black 92%, transparent); mask-image:linear-gradient(90deg, transparent, black 8%, black 92%, transparent); }
+  .marquee-track{ display:flex; gap:12px; width:max-content; animation:marquee 18s linear infinite; }
+  .marquee:hover .marquee-track{ animation-play-state:paused; }
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; flex-wrap:wrap; } .marquee{ overflow:visible; mask-image:none; -webkit-mask-image:none; } }
+  .cert-badge{
+    font-family:var(--mono); font-size:0.76rem; padding:7px 13px; white-space:nowrap;
+    border:1px solid var(--brass); color:var(--brass-bright);
+    background:var(--brass-soft); border-radius:6px;
+  }
+
+  .clientele{ margin-top:48px; padding-top:36px; border-top:1px solid var(--line); }
+  .clientele-grid{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+  @media (max-width:800px){ .clientele-grid{ grid-template-columns:1fr; } }
+  .clientele-head{ font-family:var(--sans); font-weight:600; font-size:0.98rem; color:var(--paper); margin-bottom:8px; }
+  .clientele-list{ font-size:0.9rem; color:var(--slate); line-height:1.8; }
+
+  /* ---------- angarAIX ---------- */
+  .angaraix-section{
+    background:
+      radial-gradient(ellipse 800px 560px at 82% 15%, var(--signal-soft), transparent 65%),
+      radial-gradient(ellipse 600px 500px at 5% 80%, var(--azure-soft), transparent 65%),
+      var(--ink-3, #0A1730);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .aix-layout{ display:grid; grid-template-columns:1.3fr 0.9fr; gap:48px; align-items:center; }
+  @media (max-width:900px){ .aix-layout{ grid-template-columns:1fr; } }
+  /* .aix-wordmark{
+    font-family:var(--tech); font-weight:700; font-size:clamp(2.4rem,6vw,4rem);
+    letter-spacing:-0.01em; color:var(--paper);
+  }
+  .aix-wordmark .x{ color:var(--signal-bright); text-shadow:0 0 30px rgba(34,230,214,0.4); } */
+  .aix-wordmark-img{
+    height:clamp(66px, 8.5vw, 100px);
+    width:auto;
+    display:block;
+    filter:brightness(1.7) contrast(1.1);
+  }
+  .aix-tag{ font-family:var(--mono); font-size:0.95rem; color:var(--signal-bright); margin-top:8px; letter-spacing:0.02em; }
+
+  .shield-frame{ display:flex; justify-content:center; }
+  .shield-svg{ width:100%; max-width:280px; height:auto; }
+  .shield-glow{ filter:drop-shadow(0 0 24px rgba(34,230,214,0.45)); }
+  .shield-path{ stroke-dasharray:900; stroke-dashoffset:900; transition:stroke-dashoffset 2s ease; }
+  .shield-frame.in-view .shield-path{ stroke-dashoffset:0; }
+  .shield-node{ animation:pulse 2.2s ease-in-out infinite; transform-origin:center; }
+  .shield-node:nth-child(2){ animation-delay:0.4s; }
+  .shield-node:nth-child(3){ animation-delay:0.8s; }
+
+  /* convergence graphic */
+  .converge-wrap{ margin:64px 0; }
+  .converge-svg{ width:100%; height:auto; display:block; }
+  .converge-path{ stroke-dasharray:600; stroke-dashoffset:600; transition:stroke-dashoffset 1.6s ease; }
+  .converge-wrap.in-view .converge-path{ stroke-dashoffset:0; }
+  .converge-node{ opacity:0; transform:scale(0.6); transform-origin:center; transition:opacity 0.8s ease 1.1s, transform 0.8s ease 1.1s; }
+  .converge-wrap.in-view .converge-node{ opacity:1; transform:scale(1); }
+  .converge-label{ font-family:var(--mono); font-size:11px; fill:var(--slate); letter-spacing:0.06em; }
+
+  .one-card{
+    background:var(--panel-2); border:1px solid var(--signal); border-radius:16px;
+    padding:44px; position:relative; overflow:hidden;
+  }
+  .one-card::before{
+    content:''; position:absolute; top:-40%; right:-10%; width:340px; height:340px;
+    background:radial-gradient(circle, var(--signal-soft), transparent 70%);
+    pointer-events:none; animation:orbit 12s linear infinite;
+  }
+  @keyframes orbit{ from{ transform:rotate(0deg) translateX(30px) rotate(0deg);} to{ transform:rotate(360deg) translateX(30px) rotate(-360deg);} }
+  .one-tag{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--mono);
+    font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--signal-bright); background:var(--signal-soft); border:1px solid var(--signal);
+    padding:6px 12px; border-radius:100px; margin-bottom:20px;
+  }
+  .one-tag .dot{ width:6px; height:6px; border-radius:50%; background:var(--signal-bright); animation:pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .one-title{ font-family:var(--tech); font-weight:700; font-size:2rem; color:var(--paper); }
+  .one-body{ margin-top:16px; max-width:62ch; color:var(--paper-dim); font-size:1.02rem; line-height:1.75; position:relative; z-index:1; }
+  .one-foot{ margin-top:26px; font-family:var(--mono); font-size:0.82rem; color:var(--slate); }
+
+  /* ---------- leadership ---------- */
+  .leadgrid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:44px; }
+  @media (max-width:720px){ .leadgrid{ grid-template-columns:1fr; } }
+  .lead-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    padding:32px; display:flex; gap:22px; align-items:flex-start;
+    transition:border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .lead-card:hover{ border-color:var(--brass); transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,0.35); }
+  /* .photo-frame{
+    width:92px; height:112px; border-radius:12px; flex-shrink:0; position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    background:repeating-linear-gradient(135deg, rgba(232,185,77,0.06) 0 10px, rgba(232,185,77,0.02) 10px 20px);
+    border:1.5px dashed var(--brass);
+    transition:border-color 0.25s ease, background 0.25s ease;
+  } */
+
+  .photo-frame{
+  width:92px; height:112px; border-radius:12px; flex-shrink:0; position:relative;
+  overflow:hidden;
+  border: none; /* or: border:1px solid var(--line-strong); for Option B */
+  }
+  .photo-frame img{
+    width:100%; height:100%; object-fit:cover; object-position:center top; display:block;
+  }
+  /* .lead-card:hover .photo-frame{ border-color:var(--brass-bright); background:rgba(232,185,77,0.1); } */
+  .lead-card:hover .photo-frame img{ transform:scale(1.03); }
+  /* .photo-frame svg{ width:30px; height:30px; color:var(--brass); opacity:0.85; } */
+  /* .photo-frame .frame-label{
+    font-family:var(--mono); font-size:0.58rem; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--brass-bright); opacity:0.85; text-align:center;
+  } */
+  /* .photo-frame::before{
+    content:''; position:absolute; top:8px; left:8px; width:10px; height:10px;
+    border-top:1.5px solid var(--brass-bright); border-left:1.5px solid var(--brass-bright);
+  } */
+  /* .photo-frame::after{
+    content:''; position:absolute; bottom:8px; right:8px; width:10px; height:10px;
+    border-bottom:1.5px solid var(--brass-bright); border-right:1.5px solid var(--brass-bright);
+  } */
+  .lead-name{ font-family:var(--sans); font-weight:600; font-size:1.12rem; color:var(--paper); }
+  .lead-role{ font-family:var(--mono); font-size:0.78rem; color:var(--signal-bright); margin-top:4px; letter-spacing:0.02em; }
+  .lead-bio{ margin-top:12px; font-size:0.92rem; color:var(--slate); line-height:1.6; }
+  .photo-note{ margin-top:10px; font-family:var(--mono); font-size:0.68rem; color:var(--slate-dim); letter-spacing:0.03em; }
+
+  /* ---------- legacy / migration ---------- */
+  .legacy-layout{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:40px; align-items:center; }
+  @media (max-width:900px){ .legacy-layout{ grid-template-columns:1fr; } }
+  .browser-mock{
+    border-radius:14px; overflow:hidden; border:1px solid var(--line-strong);
+    background:var(--panel); box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  }
+  .browser-chrome{ display:flex; align-items:center; gap:8px; padding:12px 16px; background:var(--panel-2); border-bottom:1px solid var(--line); }
+  .browser-dot{ width:9px; height:9px; border-radius:50%; }
+  .browser-bar{
+    flex:1; margin-left:10px; background:rgba(255,255,255,0.05); border:1px solid var(--line);
+    border-radius:6px; padding:6px 12px; font-family:var(--mono); font-size:0.78rem; color:var(--paper-dim);
+    display:flex; align-items:center; gap:6px;
+  }
+  .browser-bar .cursor{ display:inline-block; width:6px; height:13px; background:var(--signal-bright); animation:blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .browser-body{ padding:24px; display:flex; flex-direction:column; gap:10px; }
+  .wire-line{ height:10px; border-radius:4px; background:linear-gradient(90deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03)); }
+
+  .legacy-card{
+    background:var(--panel); border:1px solid var(--line-strong); border-radius:18px;
+    padding:44px; display:flex; flex-direction:column; gap:24px;
+  }
+  .legacy-card h3{ font-family:var(--serif); font-size:1.7rem; color:var(--paper); font-weight:500; }
+  .legacy-card p{ color:var(--paper-dim); font-size:0.98rem; line-height:1.7; }
+  .migrate-note{
+    margin-top:8px; padding:20px 24px; border-left:2px solid var(--brass);
+    background:var(--brass-soft); border-radius:0 10px 10px 0;
+    font-size:0.92rem; color:var(--paper-dim); display:flex; gap:14px; align-items:flex-start;
+  }
+  .migrate-note svg{ width:20px; height:20px; flex-shrink:0; margin-top:2px; color:var(--brass-bright); }
+  .migrate-note b{ color:var(--brass-bright); }
+  code.domain{ font-family:var(--mono); background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px; color:var(--paper); }
+
+  /* ---------- contact / cta ---------- */
+  .cta-band{ text-align:center; padding:100px 0 60px; }
+  .cta-band h2{ font-family:var(--serif); font-size:clamp(1.8rem,4vw,2.6rem); color:var(--paper); }
+  .cta-band p{ margin:16px auto 0; max-width:52ch; color:var(--paper-dim); }
+  .cta-buttons{ display:flex; gap:16px; justify-content:center; margin-top:36px; flex-wrap:wrap; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--line); padding:48px 0 32px; font-family:var(--mono); font-size:0.8rem; color:var(--slate-dim); }
+  .foot-top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:24px; padding-bottom:32px; border-bottom:1px solid var(--line); }
+  .foot-brand{ font-family:var(--serif); font-size:1.15rem; color:var(--paper); }
+  .foot-launch{ display:flex; align-items:center; gap:8px; color:var(--signal-bright); }
+  .foot-launch .dot{ width:6px; height:6px; border-radius:50%; background:var(--signal-bright); animation:pulse 1.8s ease-in-out infinite; }
+  .foot-cols{ display:flex; gap:60px; flex-wrap:wrap; }
+  .foot-col a, .foot-col span{ display:block; margin-top:8px; color:var(--slate-dim); }
+  .foot-col a:hover{ color:var(--paper-dim); }
+  .foot-col .head{ color:var(--slate); text-transform:uppercase; letter-spacing:0.08em; font-size:0.7rem; }
+  .foot-bottom{ margin-top:28px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="bg-field"></div>
+<div class="bg-grid"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo-badge"><img src="./images/angarai-logo-animated-nobg.gif" alt="ANGARAI" class="logo-img"></div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#angaraix">angarAIX</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#legacy">Current Site</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <span class="pill">Launching Soon</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+<section class="hero">
+  <canvas id="particleCanvas"></canvas>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">Angarai International, Inc. &nbsp;·&nbsp; Est. 2003 &nbsp;·&nbsp; College Park, MD</div>
+      <h1 class="hero-title">More than two decades of enterprise delivery,</h1>
+      <div class="hero-tech-line">engineered for what's next.</div>
+      <p class="hero-sub">ANGARAI is a professional management solutions and services firm trusted by federal, state, and local government clients to lead Enterprise Transformation and Enterprise Oversight programs. We're building a new digital home for the next chapter of that work — starting with <strong>angarAIX</strong>, our Cyber &amp; AI Division.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#angaraix">
+          See what's coming
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://www.angarai.com" target="_blank" rel="noopener">
+          Visit our current site
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+      <div class="hero-meta">
+        <div><b>ISO 9001 · 20000-1 · 22301 · 27001</b><br>Certified</div>
+        <div><b>CMMI Level 3</b><br>for Services</div>
+        <div><b>GSA · SBA HUBZone</b><br>Certified</div>
+        <div><b>Federal · State · Local</b><br>Government clients</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="./images/angarai-hero-model.gif" alt="ANGARAI animated model">
+    </div>
+  </div>
+</section>
+
+  <!-- STATS -->
+  <section class="stats-band">
+    <div class="wrap">
+      <div class="stats-grid reveal">
+        <div class="stat-item"><div class="stat-num" data-target="2003" data-nocomma="1">0</div><div class="stat-label">Founded</div></div>
+        <div class="stat-item"><div class="stat-num" data-target="5000" data-suffix="+">0</div><div class="stat-label">FTEs Supported</div></div>
+        <div class="stat-item"><div class="stat-num">1M+</div><div class="stat-label">Consulting Hours</div></div>
+        <div class="stat-item"><div class="stat-num" style="font-size:1.3rem;">GSA · CMMI-3</div><div class="stat-label">Certified &amp; Appraised</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="wrap">
+    <div class="about-layout">
+      <div>
+        <div class="section-head reveal" style="margin-bottom:0;">
+          <div class="eyebrow">Who we are</div>
+          <h2 class="section-title">Enterprise Transformation , Program Management &amp; Oversight, since 2003</h2>
+          <p class="lede">Angarai International, Inc. - dba ANGARAI - is an award-winning technology and management solutions firm. We specialize in project planning, program and project management, life cycle management, organizational change management, oversight, governance-risk-compliance (GRC), and business transformation for Federal, State, Quasi, and Local government clients, with a particular focus on the Transportation &amp; Infrastructure sector. We also provide technical consulting and specialized IT services, backed by ISO-certified, CMMI-appraised delivery practices.</p>
+        </div>
+      </div>
+      <div class="skyline-frame reveal">
+        <svg class="skyline-svg" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="18" y="90" width="34" height="110" stroke="#93A5C7" stroke-width="1.4" opacity="0.5"/>
+          <rect x="60" y="60" width="30" height="140" stroke="#93A5C7" stroke-width="1.4" opacity="0.6"/>
+          <g>
+            <polygon points="150,40 210,80 90,80" stroke="#E8B94D" stroke-width="1.6" fill="none"/>
+            <rect x="100" y="80" width="100" height="120" stroke="#E8B94D" stroke-width="1.6" fill="none"/>
+            <line x1="115" y1="80" x2="115" y2="200" stroke="#E8B94D" stroke-width="1" opacity="0.6"/>
+            <line x1="135" y1="80" x2="135" y2="200" stroke="#E8B94D" stroke-width="1" opacity="0.6"/>
+            <line x1="150" y1="80" x2="150" y2="200" stroke="#E8B94D" stroke-width="1" opacity="0.6"/>
+            <line x1="165" y1="80" x2="165" y2="200" stroke="#E8B94D" stroke-width="1" opacity="0.6"/>
+            <line x1="185" y1="80" x2="185" y2="200" stroke="#E8B94D" stroke-width="1" opacity="0.6"/>
+          </g>
+          <rect x="220" y="70" width="26" height="130" stroke="#93A5C7" stroke-width="1.4" opacity="0.6"/>
+          <rect x="254" y="100" width="32" height="100" stroke="#93A5C7" stroke-width="1.4" opacity="0.5"/>
+          <line x1="10" y1="200" x2="300" y2="200" stroke="#22E6D6" stroke-width="1.2" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="capgrid reveal">
+      <div class="cap-item"><div class="num">01</div><div class="name">Project &amp; Program Management</div><div class="desc">From project planning through execution, for public sector programs of every scale.</div></div>
+      <div class="cap-item"><div class="num">02</div><div class="name">Advisory &amp; Strategy Management</div><div class="desc">Helping leaders make informed decisions and achieve strategic objectives.</div></div>
+      <div class="cap-item"><div class="num">03</div><div class="name">Transformation &amp; Change Management</div><div class="desc">Navigating the dynamic factors that drive lasting change.</div></div>
+      <div class="cap-item"><div class="num">04</div><div class="name">Assurance &amp; Quality Management</div><div class="desc">Ensuring quality, compliance, and continuous improvement for reliable business outcomes.</div></div>
+      <div class="cap-item"><div class="num">05</div><div class="name">Goals &amp; Performance Management</div><div class="desc">Aligning strategic goals with measurable performance to deliver lasting business results.</div></div>
+      <div class="cap-item"><div class="num">06</div><div class="name">Technical &amp; IT Consulting</div><div class="desc">Specialized IT services with a focus on program integrity.</div></div>
+    </div>
+
+    <div class="vertrow reveal">
+      <span class="vert-chip">Transportation &amp; Infrastructure</span>
+      <span class="vert-chip">Federal &amp; Quasi-Government</span>
+      <span class="vert-chip">State &amp; Local Government</span>
+      <span class="vert-chip">Health &amp; Human Services</span>
+    </div>
+
+    <div class="vertrow reveal" style="margin-top:14px;">
+      <span class="label" style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em; color:var(--slate-dim); text-transform:uppercase; width:100%; margin-bottom:4px;">IDIQ Contract Vehicles</span>
+      <span class="vert-chip">CATS+</span>
+      <span class="vert-chip">DPMO</span>
+      <span class="vert-chip">GSA MAS</span>
+      <span class="vert-chip">BaCo</span>
+      <span class="vert-chip">PGC ITPC</span>
+      <span class="vert-chip">PGCSS</span>
+      <span class="vert-chip">MWAA FCA EAM</span>
+    </div>
+
+    <div class="certstrip reveal">
+      <span class="label">Certifications &amp; Designations</span>
+      <div class="marquee">
+        <div class="marquee-track">
+          <span class="cert-badge">ISO 9001</span>
+          <span class="cert-badge">ISO/IEC 20000-1</span>
+          <span class="cert-badge">ISO 22301</span>
+          <span class="cert-badge">ISO/IEC 27001</span>
+          <span class="cert-badge">CMMI-SVC Level 3</span>
+          <span class="cert-badge">GSA Certified</span>
+          <span class="cert-badge">SBA HUBZone</span>
+          <span class="cert-badge">CRMSDC</span>
+          <span class="cert-badge">ACDBE</span>
+          <span class="cert-badge">MBE</span>
+          <span class="cert-badge">DBE</span>
+          <span class="cert-badge">SBR</span>
+          <span class="cert-badge">LDBE</span>
+          <span class="cert-badge">SLBE</span>
+          <span class="cert-badge">ISO 9001</span>
+          <span class="cert-badge">ISO/IEC 20000-1</span>
+          <span class="cert-badge">ISO 22301</span>
+          <span class="cert-badge">ISO/IEC 27001</span>
+          <span class="cert-badge">CMMI-SVC Level 3</span>
+          <span class="cert-badge">GSA Certified</span>
+          <span class="cert-badge">SBA HUBZone</span>
+          <span class="cert-badge">CRMSDC</span>
+          <span class="cert-badge">ACDBE</span>
+          <span class="cert-badge">MBE</span>
+          <span class="cert-badge">DBE</span>
+          <span class="cert-badge">SBR</span>
+          <span class="cert-badge">LDBE</span>
+          <span class="cert-badge">SLBE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="clientele reveal">
+      <span class="label" style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em; color:var(--slate-dim); text-transform:uppercase; display:block; margin-bottom:16px;">Representative Clientele</span>
+      <div class="clientele-grid">
+        <div>
+          <div class="clientele-head">Federal &amp; Quasi</div>
+          <p class="clientele-list">Department of Defense (DoD) · National Institutes of Health (NIH) · Federal Transit Administration (FTA) · Washington Headquarters Services (WHS) · Department of Labor (DOL)</p>
+        </div>
+        <div>
+          <div class="clientele-head">State &amp; Local</div>
+          <p class="clientele-list">New York State (NYS) · Comptroller of Maryland · Maryland DOL, MDH &amp; DHS · Maryland Health Benefit Exchange (MHBE) · Maryland DOT · Maryland DNR · Maryland State Dept. of Education (MSDE) · Baltimore, Prince George's &amp; Montgomery Counties</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANGARAIX -->
+  <section id="angaraix" class="angaraix-section">
+    <div class="wrap">
+      <div class="aix-layout">
+        <div class="section-head reveal" style="margin-bottom:0;">
+          <div class="eyebrow">The next chapter</div>
+          <img class="aix-wordmark-img" src="./images/angaraix-logo.png" alt="angarAIX">
+          <!-- <div class="aix-wordmark">angar<span class="x">AI</span>X</div> -->
+          <div class="aix-tag">The Cyber &amp; AI Division of ANGARAI</div>
+          <p class="lede">angarAIX is where ANGARAI's two decades of enterprise program management experience meet modern cybersecurity and artificial intelligence. As the clients we serve face faster-moving threats and faster-moving technology, angarAIX brings AI-driven insight and cyber resilience into the same disciplined delivery framework our clients already trust - so security and innovation move at the same pace as the mission.</p>
+        </div>
+        <div class="shield-frame reveal" id="shieldFrame">
+          <svg class="shield-svg shield-glow" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="shield-path" d="M100 12 L176 42 V108 C176 156 144 190 100 208 C56 190 24 156 24 108 V42 Z" stroke="#22E6D6" stroke-width="2.4"/>
+            <path class="shield-path" d="M64 96 L86 96 L96 76 L108 128 L118 108 L136 108" stroke="#7CFCEF" stroke-width="2"/>
+            <circle class="shield-node" cx="64" cy="96" r="4" fill="#8FB6FF"/>
+            <circle class="shield-node" cx="136" cy="108" r="4" fill="#8FB6FF"/>
+            <circle class="shield-node" cx="100" cy="150" r="4" fill="#E8B94D"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="converge-wrap reveal" id="convergeWrap">
+        <svg class="converge-svg" viewBox="0 0 1000 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="60" y="40" class="converge-label">EST. 2003 - PROGRAM &amp; PROJECT MANAGEMENT</text>
+          <path class="converge-path" d="M60 60 C 300 60, 350 130, 480 130" stroke="#E8B94D" stroke-width="2"/>
+          <text x="880" y="40" text-anchor="end" class="converge-label">angarAIX - CYBER &amp; AI</text>
+          <path class="converge-path" d="M940 60 C 700 60, 650 130, 520 130" stroke="#22E6D6" stroke-width="2" stroke-dasharray="6 6"/>
+          <g class="converge-node">
+            <circle cx="500" cy="130" r="34" fill="url(#nodeGlow)"/>
+            <circle cx="500" cy="130" r="34" fill="none" stroke="#F5F3EC" stroke-width="1.2"/>
+            <text x="500" y="126" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="12" fill="#050B18">ANGARAI</text>
+            <text x="500" y="140" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="12" fill="#050B18">ONE</text>
+          </g>
+          <defs>
+            <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#F5F3EC"/>
+              <stop offset="100%" stop-color="#E8B94D"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="one-card reveal">
+        <span class="one-tag"><span class="dot"></span>Flagship platform · Coming soon</span>
+        <div class="one-title">ANGARAI ONE</div>
+        <p class="one-body">ANGARAI ONE is the flagship platform under angarAIX - a single, unified environment designed to bring ANGARAI's program management discipline together with AI-powered cyber and data capabilities under one roof. It's how two decades of delivery experience becomes one connected platform for what our clients need next.</p>
+        <div class="one-foot">Full details are on the way as part of our new website launch.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section id="leadership" class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Leadership</div>
+      <h2 class="section-title">The people behind the next chapter</h2>
+    </div>
+    <div class="leadgrid reveal">
+      <div class="lead-card">
+        <div class="photo-frame">
+          <!-- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c1.4-3.6 4.4-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg> -->
+          <img src="./images/venkat-subramanian.png" alt="venkat">
+        </div>
+        <div>
+          <div class="lead-name">Venkat Subramanian</div>
+          <div class="lead-role">Founder, President &amp; CEO</div>
+          <p class="lead-bio">Founder of ANGARAI in 2003, Venkat has led the firm's growth into a trusted Enterprise Transformation and Oversight partner for government clients nationwide.</p>
+          <!-- <div class="photo-note">Frame ready - drop in headshot</div> -->
+        </div>
+      </div>
+      <div class="lead-card">
+        <div class="photo-frame">
+          <!-- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c1.4-3.6 4.4-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg> -->
+          <img src="./images/adithya-menon-sanil.jpg" alt="adithya">
+          <!-- <span class="frame-label">Add Photo</span> -->
+        </div>
+        <div>
+          <div class="lead-name">Adithya Menon Sanil</div>
+          <div class="lead-role">COO &amp; CTO</div>
+          <p class="lead-bio">As Chief Operating Officer and Chief Technology Officer, Adithya leads ANGARAI's day-to-day operations and technology strategy - including the platforms and infrastructure behind angarAIX.</p>
+          <!-- <div class="photo-note">Frame ready - drop in headshot</div> -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGACY / MIGRATION -->
+  <section id="legacy" class="wrap">
+    <div class="legacy-layout">
+      <div class="browser-mock reveal">
+        <div class="browser-chrome">
+          <span class="browser-dot" style="background:#E8B94D;"></span>
+          <span class="browser-dot" style="background:#22E6D6;"></span>
+          <span class="browser-dot" style="background:#4C8DFF;"></span>
+          <div class="browser-bar">angarai.com<span class="cursor"></span></div>
+        </div>
+        <div class="browser-body">
+          <div class="wire-line" style="width:60%; height:16px;"></div>
+          <div class="wire-line" style="width:90%;"></div>
+          <div class="wire-line" style="width:80%;"></div>
+          <div class="wire-line" style="width:45%;"></div>
+        </div>
+      </div>
+      <div class="legacy-card reveal">
+        <h3>Looking for our current site?</h3>
+        <p>While we build what's next, our full site - services, case studies, careers, and more - is live today. Everything you're used to finding is still right where you left it.</p>
+        <a class="btn btn-primary" style="align-self:flex-start;" href="https://www.angarai.com" target="_blank" rel="noopener">
+          Visit the current site
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+        <div class="migrate-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <div><b>A quick note on our address:</b> we've consolidated our web presence - <code class="domain">angarai-intl.com</code> now brings you home to <code class="domain">angarai.com</code>, our single address online, ahead of the new site's launch.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="wrap">
+    <div class="cta-band reveal">
+      <div class="eyebrow" style="justify-content:center;">Get in touch</div>
+      <h2>Want the full story?</h2>
+      <p>Explore our history, leadership, certifications, and case studies on our current site, or reach our team directly.</p>
+      <div class="cta-buttons">
+        <a class="btn btn-primary" href="https://www.angarai.com/aboutus.html" target="_blank" rel="noopener">Know more about us</a>
+        <a class="btn btn-ghost" href="https://www.angarai.com/contactus.html" target="_blank" rel="noopener">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="foot-top">
+    <div>
+      <div class="foot-logo-badge"><img src="./images/angarai-logo-animated-nobg.gif" alt="ANGARAI"></div>
+      <div class="foot-brand">Angarai International, Inc.</div>
+      <div class="foot-launch" style="margin-top:8px;"><span class="dot"></span> New website launching soon</div>
+    </div>
+    <div class="foot-cols">
+      <div class="foot-col">
+        <span class="head">Company</span>
+        <a href="#about">About</a>
+        <a href="#angaraix">angarAIX</a>
+        <a href="#leadership">Leadership</a>
+      </div>
+      <div class="foot-col">
+        <span class="head">Reach us</span>
+        <span>9658 Baltimore Avenue, Suite 300</span>
+        <span>College Park, MD 20740, USA</span>
+        <span>410-472-5000</span>
+      </div>
+      <div class="foot-col">
+        <span class="head">Elsewhere</span>
+        <a href="https://www.angarai.com" target="_blank" rel="noopener">Current site ↗</a>
+        <a href="https://www.linkedin.com/company/angarai" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Angarai International, Inc. All rights reserved.</span>
+    <span>ISO 9001 · 20000-1 · 22301 · 27001 Certified &nbsp;·&nbsp; CMMI Appraised &nbsp;·&nbsp; SBA HUBZone</span>
+  </div>
+</footer>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll progress bar
+  const progressEl = document.getElementById('scrollProgress');
+  function updateProgress(){
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progressEl.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', () => requestAnimationFrame(updateProgress), { passive:true });
+
+  // Reveal-on-scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Convergence graphic draw-in
+  const convergeWrap = document.getElementById('convergeWrap');
+  if(convergeWrap){
+    const io2 = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in-view'); io2.unobserve(e.target); } });
+    }, { threshold: 0.3 });
+    io2.observe(convergeWrap);
+  }
+
+  // Shield graphic draw-in
+  const shieldFrame = document.getElementById('shieldFrame');
+  if(shieldFrame){
+    const io3 = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in-view'); io3.unobserve(e.target); } });
+    }, { threshold: 0.3 });
+    io3.observe(shieldFrame);
+  }
+
+  // Stat counters
+  const statEls = document.querySelectorAll('.stat-num[data-target]');
+  const io4 = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.getAttribute('data-target'), 10);
+        const noComma = el.getAttribute('data-nocomma') === '1';
+        const suffix = el.getAttribute('data-suffix') || '';
+        const fmt = (n) => (noComma ? String(n) : n.toLocaleString('en-US')) + suffix;
+        if(reduceMotion){ el.textContent = fmt(target); }
+        else {
+          const start = performance.now();
+          const dur = 1400;
+          function tick(now){
+            const p = Math.min((now - start) / dur, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(Math.floor(eased * target));
+            if(p < 1) requestAnimationFrame(tick); else el.textContent = fmt(target);
+          }
+          requestAnimationFrame(tick);
+        }
+        io4.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  statEls.forEach(el => io4.observe(el));
+
+  // Particle network canvas in hero
+  const canvas = document.getElementById('particleCanvas');
+  if(canvas){
+    const ctx = canvas.getContext('2d');
+    const hero = canvas.closest('.hero');
+    let w, h, particles = [];
+    const colors = ['rgba(124,252,239,', 'rgba(143,182,255,', 'rgba(255,216,115,'];
+
+    function resize(){
+      w = canvas.width = hero.offsetWidth;
+      h = canvas.height = hero.offsetHeight;
+    }
+    function initParticles(){
+      const count = Math.min(70, Math.floor((w*h)/18000));
+      particles = Array.from({length:count}, () => ({
+        x: Math.random()*w, y: Math.random()*h,
+        vx: (Math.random()-0.5)*0.25, vy: (Math.random()-0.5)*0.25,
+        r: Math.random()*1.6+0.6,
+        c: colors[Math.floor(Math.random()*colors.length)]
+      }));
+    }
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(let i=0;i<particles.length;i++){
+        const p = particles[i];
+        if(!reduceMotion){ p.x += p.vx; p.y += p.vy; }
+        if(p.x < 0 || p.x > w) p.vx *= -1;
+        if(p.y < 0 || p.y > h) p.vy *= -1;
+        for(let j=i+1;j<particles.length;j++){
+          const q = particles[j];
+          const dx = p.x-q.x, dy = p.y-q.y;
+          const dist = Math.sqrt(dx*dx+dy*dy);
+          if(dist < 130){
+            ctx.strokeStyle = `rgba(147,165,199,${0.14 * (1 - dist/130)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+          }
+        }
+      }
+      for(const p of particles){
+        ctx.beginPath();
+        ctx.fillStyle = p.c + '0.9)';
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+      }
+      if(!reduceMotion) requestAnimationFrame(draw);
+    }
+    resize(); initParticles(); draw();
+    window.addEventListener('resize', () => { resize(); initParticles(); if(reduceMotion) draw(); });
+  }
+</script>
+
+</body>
+</html>
