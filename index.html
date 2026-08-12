@@ -485,15 +485,14 @@
   /* ===== CAPABILITY COLLATERAL / PDF DOWNLOADS ===== */
   .collateral-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-    gap:18px;
+    grid-template-columns:repeat(5, 1fr);
+    gap:14px;
   }
   .doc-card{
-    display:flex; flex-direction:column; gap:12px;
-    padding:24px 22px 22px;
-    background:linear-gradient(160deg, var(--panel) 0%, var(--ink-3) 100%);
-    border:1px solid var(--line);
-    border-radius:14px;
+    display:flex; flex-direction:column; gap:0;
+    background:#101f3c;
+    border:1px solid rgba(178,199,255,0.22);
+    border-radius:12px;
     position:relative; overflow:hidden;
     transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease;
   }
@@ -504,19 +503,32 @@
     opacity:0; transition:opacity .35s ease;
   }
   .doc-card:hover{
-    transform:translateY(-4px);
-    border-color:var(--line-strong);
-    box-shadow:0 14px 40px rgba(0,0,0,0.45);
+    transform:translateY(-6px);
+    border-color:var(--signal);
+    box-shadow:0 18px 46px rgba(0,0,0,0.55), 0 0 0 1px rgba(34,230,214,0.25);
   }
+  .doc-thumb{
+    position:relative;
+    aspect-ratio:460 / 613;
+    overflow:hidden;
+    background:#fff;
+    border-bottom:1px solid rgba(178,199,255,0.18);
+  }
+   .doc-thumb img{
+    width:100%; height:100%;
+    object-fit:cover; object-position:top center;
+    transition:transform .5s ease;
+  }
+  .doc-card:hover .doc-thumb img{ transform:scale(1.04); }
+  .doc-thumb::after{
+    content:"PDF";
+    position:absolute; top:8px; right:8px;
+    font-family:var(--mono); font-size:0.56rem; letter-spacing:0.1em;
+    color:var(--ink); background:var(--brass);
+    padding:3px 7px; border-radius:3px; font-weight:600;
+  }
+  .doc-body{ padding:16px 16px 18px; display:flex; flex-direction:column; gap:8px; flex:1; }
   .doc-card:hover::after{ opacity:1; }
-  .doc-icon{
-    width:38px; height:44px; flex-shrink:0;
-    display:flex; align-items:flex-end; justify-content:center;
-    border:1px solid var(--line-strong); border-radius:5px;
-    background:rgba(232,185,77,0.06); padding-bottom:6px;
-    font-family:var(--mono); font-size:0.6rem; letter-spacing:0.08em;
-    color:var(--brass);
-  }
   .doc-kind{
     font-family:var(--mono); font-size:0.66rem; letter-spacing:0.12em;
     text-transform:uppercase; color:var(--slate-dim);
@@ -721,64 +733,84 @@
     <div class="section-head reveal">
       <div class="eyebrow">Capability collateral</div>
       <h2 class="section-title">Our capability statements, at a glance</h2>
-      <p class="lede">Two-page overviews built for contracting officers, primes, and teaming partners &mdash; certifications, past performance, NAICS alignment, and how to reach us. Each opens as a PDF in a new tab.</p>
+      <p class="lede">Two-page overviews built for contracting officers, primes, and teaming partners &mdash; certifications, past performance, NAICS alignment, and how to reach us.</p>
     </div>
 
     <div class="collateral-grid reveal">
 
       <a class="doc-card" href="./docs/angarai-capability-overview-2025.pdf" target="_blank" rel="noopener">
-        <div class="doc-icon">PDF</div>
-        <div class="doc-kind">Start here</div>
-        <div class="doc-title">Capability Overview</div>
-        <p class="doc-desc">The full picture &mdash; the ANGARAI 5&#8309; solutions matrix, the Subramanian Chakra Model, our Enterprise Performance Management Framework, and every certification we hold.</p>
-        <span class="doc-link">Open PDF
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          <span class="doc-meta">v1.3 · Jul 2025</span>
-        </span>
-      </a>
-
-      <a class="doc-card" href="./docs/angarai-know-your-vendor-2025.pdf" target="_blank" rel="noopener">
-        <div class="doc-icon">PDF</div>
-        <div class="doc-kind">Know Your Vendor</div>
-        <div class="doc-title">Who We Are &amp; Why ANGARAI</div>
-        <p class="doc-desc">Our vendor introduction &mdash; the six excellence pillars behind our 360&deg; support model, the key strategies we bring to public sector transformation, and our full accreditation profile.</p>
-        <span class="doc-link">Open PDF
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          <span class="doc-meta">v1.3 · Jul 2025</span>
-        </span>
+        <div class="doc-thumb">
+          <img src="./images/doc-thumbs/angarai-capability-overview-2025.jpg" alt="ANGARAI Federal Portfolio capability statement" loading="lazy">
+        </div>
+        <div class="doc-body">
+          <div class="doc-kind">Start here</div>
+          <div class="doc-title">Capability Overview</div>
+          <p class="doc-desc">Solutions matrix, delivery model, and full certifications.</p>
+          <span class="doc-link">Open PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            <span class="doc-meta">v1.3 · Jul 2025</span>
+          </span>
+        </div>
       </a>
 
       <a class="doc-card" href="./docs/angarai-federal-portfolio-2025.pdf" target="_blank" rel="noopener">
-        <div class="doc-icon">PDF</div>
-        <div class="doc-kind">Portfolio</div>
-        <div class="doc-title">Federal</div>
-        <p class="doc-desc">Work delivered for DoD, NIH, FTA, WHS, and DOL &mdash; with our IDIQ vehicles (CATS+, DPMO, MJUD, BaCo, PGCo), socio-economic certifications, and full NAICS code list.</p>
-        <span class="doc-link">Open PDF
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          <span class="doc-meta">v1.3 · Jul 2025</span>
-        </span>
+        <div class="doc-thumb">
+          <img src="./images/doc-thumbs/angarai-federal-portfolio-2025.jpg" alt="ANGARAI Federal Portfolio capability statement" loading="lazy">
+        </div>
+        <div class="doc-body">
+          <div class="doc-kind">Portfolio</div>
+          <div class="doc-title">Federal</div>
+          <p class="doc-desc">DoD, NIH, FTA, WHS, and DOL. IDIQs and NAICS codes.</p>
+          <span class="doc-link">Open PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            <span class="doc-meta">v1.3 · Jul 2025</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="doc-card" href="./docs/angarai-know-your-vendor-2025.pdf" target="_blank" rel="noopener">
+        <div class="doc-thumb">
+          <img src="./images/doc-thumbs/angarai-know-your-vendor-2025.jpg" alt="ANGARAI Federal Portfolio capability statement" loading="lazy">
+        </div>
+        <div class="doc-body">
+          <div class="doc-kind">Know Your Vendor</div>
+          <div class="doc-title">Who We Are</div>
+          <p class="doc-desc">Who we are, how we work, and our accreditations.</p>
+          <span class="doc-link">Open PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            <span class="doc-meta">v1.3 · Jul 2025</span>
+          </span>
+        </div>
       </a>
 
       <a class="doc-card" href="./docs/angarai-state-local-portfolio-2025.pdf" target="_blank" rel="noopener">
-        <div class="doc-icon">PDF</div>
-        <div class="doc-kind">Portfolio</div>
-        <div class="doc-title">State &amp; Local</div>
-        <p class="doc-desc">New York State, Comptroller of Maryland, MDOT, MDH, DHS, MHBE, MSDE, DNR, and Baltimore, Prince George's &amp; Montgomery Counties &mdash; plus our trading partners and business associations.</p>
-        <span class="doc-link">Open PDF
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          <span class="doc-meta">v1.3 · Jul 2025</span>
-        </span>
+        <div class="doc-thumb">
+          <img src="./images/doc-thumbs/angarai-state-local-portfolio-2025.jpg" alt="ANGARAI Federal Portfolio capability statement" loading="lazy">
+        </div>
+        <div class="doc-body">
+          <div class="doc-kind">Portfolio</div>
+          <div class="doc-title">State &amp; Local</div>
+          <p class="doc-desc">New York State, Maryland agencies, and MD counties.</p>
+          <span class="doc-link">Open PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            <span class="doc-meta">v1.3 · Jul 2025</span>
+          </span>
+        </div>
       </a>
 
       <a class="doc-card" href="./docs/angarai-transportation-infrastructure-2025.pdf" target="_blank" rel="noopener">
-        <div class="doc-icon">PDF</div>
-        <div class="doc-kind">Sector focus</div>
-        <div class="doc-title">Transportation &amp; Infrastructure</div>
-        <p class="doc-desc">Multi-modal transit, airports and ports, bridges and tunnels, and water, gas &amp; energy utilities &mdash; 25+ projects, 250+ FTEs, across program management, CM/inspection, and asset management.</p>
-        <span class="doc-link">Open PDF
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          <span class="doc-meta">v1.3 · Jul 2025</span>
-        </span>
+        <div class="doc-thumb">
+          <img src="./images/doc-thumbs/angarai-transportation-infrastructure-2025.jpg" alt="ANGARAI Federal Portfolio capability statement" loading="lazy">
+        </div>
+        <div class="doc-body">
+          <div class="doc-kind">Sector focus</div>
+          <div class="doc-title">Transportation &amp; Infra</div>
+          <p class="doc-desc">Transit, airports, ports, bridges, and utilities.</p>
+          <span class="doc-link">Open PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            <span class="doc-meta">v1.3 · Jul 2025</span>
+          </span>
+        </div>
       </a>
 
     </div>
