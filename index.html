@@ -488,6 +488,15 @@
     grid-template-columns:repeat(5, 1fr);
     gap:14px;
   }
+  @media (max-width: 1100px){
+    .collateral-grid{ grid-template-columns:repeat(3, 1fr); gap:16px; }
+  }
+  @media (max-width: 760px){
+    .collateral-grid{ grid-template-columns:repeat(2, 1fr); gap:14px; }
+  }
+  @media (max-width: 520px){
+    .collateral-grid{ grid-template-columns:1fr; gap:18px; }
+  }
   .doc-card{
     display:flex; flex-direction:column; gap:0;
     background:#101f3c;
